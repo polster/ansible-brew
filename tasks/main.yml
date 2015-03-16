@@ -1,0 +1,6 @@
+# Brew (cask) tasks.
+---
+
+- include: setup.yml
+
+- include: install-apps.yml

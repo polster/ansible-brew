@@ -1,0 +1,23 @@
+# Default variables, may be overridden by depending roles.
+---
+
+# The list containing brew apps to be defined by the depending role.
+# Expected format, e.g.:
+# brew_app_list
+#   - { app: "<app name>" }
+brew_app_list: []
+
+# The list containing brew cask apps to be defined by the depending role.
+# Expected format, e.g.:
+# brew_app_list
+#   - { app: "<app name>" }
+brew_cask_app_list: []
+
+# The default remote location for the brew installer script
+brew_install_url_script: "https://raw.githubusercontent.com/Homebrew/install/master/install"
+
+# Set True if brew should be updated or False to skip
+brew_update: True
+
+# Set True if brew should do a full upgrade of all brew packages
+brew_upgrade_all: True

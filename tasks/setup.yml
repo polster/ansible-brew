@@ -1,0 +1,59 @@
+# Installs everything required to be able to use brew and cask
+#
+# Parameters
+# - brew_install_url_script: The remote location of the brew installer script
+# - brew_xcode_clang: The location of the clang binary
+# - brew_brew: The location of the brew binary
+# - brew_update: The flag if brew should be updated or not
+# - brew_upgrade_all: The flag if brew should do a full upgrade of all brew packages
+---
+
+- name: Register status if xcode cmd tools are installed
+  stat:
+    path: "{{ brew_xcode_clang }}"
+  register: _xcode_cmd_tools
+  changed_when: False
+
+- name: Fail if xcode cmd tools are not installed
+  fail:
+    msg: "XCode tools need to be installed first. Try: /usr/bin/xcode-select --install"
+  when: _xcode_cmd_tools.stat.exists == False
+
+- name: Register status if brew is installed
+  stat:
+    path: "{{ brew_brew }}"
+  register: _brew
+  changed_when: False
+
+# Only install brew if not present
+- name: Install brew if not present
+  command: "ruby -e $(curl -fsSL {{ brew_install_url_script }})"
+  when: _brew is defined and _brew.stat.exists == False
+
+# Register brew doctor's status
+- name: Run brew doctor and register output
+  command: "brew doctor"
+  register: _brew_doctor_output
+  changed_when: False
+
+- name: Fail if brew doctor reports issues to fix
+  fail:
+    msg: "Brew doctor reported some issues that need to be fixed first"
+  when: "'Your system is ready to brew' not in _brew_doctor_output.stdout"
+
+# Do an update if brew is already installed and do update flag is true
+- name: Update brew if brew is installed and brew update flag is true
+  homebrew:
+    update_homebrew: "{{ brew_update }}"
+  when: _brew is defined and _brew.stat.exists
+
+- name: Install taps
+  homebrew_tap:
+    name: "{{ item.tap }}"
+    state: present
+  with_items: brew_tap_list
+
+- name: Upgrade all brew packages if upgrade all flag is true
+  homebrew:
+    update_homebrew: "{{ brew_update }}"
+    upgrade_all: "{{ brew_upgrade_all }}"
