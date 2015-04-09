@@ -2,7 +2,6 @@
 galaxy_info:
   author: Simon Dietschi
   description: Home Brew role for Ansible
-  company: BlueCare
   license: MIT
   min_ansible_version: 1.8
   platforms:
@@ -10,5 +9,6 @@ galaxy_info:
       versions:
         - 10.10
   categories:
-    - web
+    - system
+    - development
 dependencies: []
