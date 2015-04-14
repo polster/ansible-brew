@@ -5,6 +5,11 @@
 # - brew_cask_app_list: The list of apps to be installed with brew cask
 ---
 
+# install default apps with brew
+- name: Install default packages with brew
+  homebrew: name='{{ item.app }}'
+  with_items: brew_app_list_default
+
 # install apps with brew
 - name: Install packages with brew
   homebrew: name='{{ item.app }}'
