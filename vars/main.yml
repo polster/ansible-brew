@@ -9,7 +9,7 @@ brew_brew: "/usr/local/bin/brew"
 
 # The list of taps
 brew_tap_list:
-  - { tap: "phinze/cask" }
+  - { tap: "caskroom/cask/brew-cask" }
 
 # List of default apps being installed
 brew_app_list_default:
