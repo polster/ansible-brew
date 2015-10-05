@@ -9,7 +9,10 @@ brew_brew: "/usr/local/bin/brew"
 
 # The list of taps
 brew_tap_list:
-  - { tap: "caskroom/cask/brew-cask" }
+  - { tap: "caskroom/cask" }
+  - { tap: "caskroom/versions" }
+  - { tap: "homebrew/versions" }
+  - { tap: "homebrew/binary" }
 
 # List of default apps being installed
 brew_app_list_default:
