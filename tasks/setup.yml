@@ -47,12 +47,6 @@
     update_homebrew: "{{ brew_update }}"
   when: _brew is defined and _brew.stat.exists
 
-- name: Install taps
-  homebrew_tap:
-    name: "{{ item.tap }}"
-    state: present
-  with_items: brew_tap_list
-
 - name: Upgrade all brew packages if upgrade all flag is true
   homebrew:
     update_homebrew: "{{ brew_update }}"

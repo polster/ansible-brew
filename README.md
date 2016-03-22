@@ -59,18 +59,6 @@ brew_app_list:
   - { app: "npm" }
 ```
 
-#### brew_cask_app_list
-
-* Allows to pass in a list of apps (packages) to be installed over brew cask
-* The default value is an empty list (nothing will be installed by default)
-
-Sample:
-
-```
-brew_cask_app_list:
-  - { app: "google-chrome" }
-```
-
 #### brew_update
 
 * Specifies if brew itself should be updated or not (if brew already installed)

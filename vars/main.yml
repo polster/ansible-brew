@@ -7,13 +7,6 @@ brew_xcode_clang: "/Library/Developer/CommandLineTools/usr/bin/clang"
 # The absolute location of the brew binary
 brew_brew: "/usr/local/bin/brew"
 
-# The list of taps
-brew_tap_list:
-  - { tap: "caskroom/cask" }
-  - { tap: "caskroom/versions" }
-  - { tap: "homebrew/versions" }
-  - { tap: "homebrew/binary" }
-
 # List of default apps being installed
 brew_app_list_default:
   - { app: "brew-cask" }
