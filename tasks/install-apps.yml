@@ -3,10 +3,27 @@
 
 # install default apps with brew
 - name: Install default packages with brew
-  homebrew: name='{{ item.app }}'
+  homebrew:
+    name: '{{ item.app }}'
+    state: present
   with_items: brew_app_list_default
 
 # install apps with brew
 - name: Install packages with brew
-  homebrew: name='{{ item.app }}'
+  homebrew:
+    name: '{{ item.app }}'
+    state: present
   with_items: brew_app_list
+
+- name: Get list of apps installed with cask
+  command: >
+    bash -l -c '{{ brew_brew }} cask list'
+  register: brew_cask_list_installed
+  always_run: yes
+  changed_when: false
+
+- name: Install configured cask applications
+  command: >
+    bash -l -c '{{ brew_brew }} cask install {{ item.cask }} --appdir={{ brew_cask_appdir }}'
+  with_items: "{{ brew_cask_list }}"
+  when: "'{{ item.cask }}' not in brew_cask_list_installed.stdout"
